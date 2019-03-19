@@ -72,13 +72,13 @@ public class Computer extends Player {
 
     private int checkScore(int x, int y, Board board){
         int[] xy = {x,y};
-        return judgment.checkLeftUp(xy,board,this,false)[1]
-                +judgment.checkUp(xy,board,this,false)[1]
-                +judgment.checkRightUp(xy,board,this,false)[1]
-                +judgment.checkLeft(xy,board,this,false)[1]
-                +judgment.checkRight(xy,board,this,false)[1]
-                +judgment.checkLeftBottom(xy,board,this,false)[1]
-                +judgment.checkBottom(xy,board,this,false)[1]
-                +judgment.checkRightBottom(xy,board,this,false)[1];
+        int ret = 0;
+
+        int[][] checkArr = judgment.check(xy,board,this);
+
+        for(int i = 0; i < 8; i++){
+            ret += checkArr[i][1];
+        }
+        return ret;
     }
 }

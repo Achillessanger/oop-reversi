@@ -85,7 +85,7 @@ public class Test {
 
             }else {
 
-                if(judgment.reverse(human.nextStep(board),board,human)){
+                if(judgment.reverse(human.nextStep(board),board,human)){ //judgment.reverse(human.nextStep(board),board,human)
                     board.printBoard();
                   //  System.out.println(human.getChessNum());////////??!!!!
                     if(judgment.isWon(board,human)){
@@ -115,7 +115,7 @@ public class Test {
     }
 
     private static void endGame(int dimension, Player winner, Player loser, boolean ifGiveUp)throws FileNotFoundException,IOException{
-        String path = "./recode.csv";
+        String path = "recode.csv";
         long durTime = System.currentTimeMillis()/1000 - startTime;
         SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd HH:mm:ss");
 //        recode.add(df.format(new Date()));
@@ -127,17 +127,27 @@ public class Test {
 //        recode.add(X.getChessNum()+" to "+X.getOpponent().getChessNum());
 
 
-        BufferedWriter out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(path),"UTF-8"));
-        out.newLine();
-        out.write(df.format(new Date()));
-        out.write(df.format(durTime));
-        out.write(df.format(dimension+"*"+dimension));
-        out.write(df.format(X.getType()));
-        out.write(df.format(X.getOpponent().getType()));
+        BufferedWriter out = new BufferedWriter(new FileWriter(path,true));
+        String[] logger = {df.format(new Date()),
+                durTime+"",
+                dimension+"*"+dimension,
+                X.getType(),
+                X.getOpponent().getType(),
+                ""
+        } ;
+
+//        out.write(df.format(new Date()));
+//        out.write(df.format(durTime));
+//        String dim = dimension+"*"+dimension;
+//        out.write(df.format(dim));
+//        out.write(df.format(X.getType()));
+//        out.write(df.format(X.getOpponent().getType()));
         if(ifGiveUp)
-            out.write("human give up");
+            logger[5] = "human give up";
         else
-            out.write(df.format(X.getChessNum()+" to "+X.getOpponent().getChessNum()));
+            logger[5] = X.getChessNum()+" to "+X.getOpponent().getChessNum();
+
+        //out.writeRecord
         System.exit(0);
 
 
